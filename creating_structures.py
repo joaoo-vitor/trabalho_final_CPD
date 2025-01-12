@@ -2,7 +2,7 @@ import pandas as pd
 from hashing import *
 
 df_players = pd.read_csv('players.csv')
-df_ratings = pd.read_csv('rating.csv')
+df_ratings = pd.read_csv('minirating.csv')
 # 2.1 Estrutura 1: Armazenando Dados Sobre Jogadores
 
 # Define colunas novas em df_players para os ratings
