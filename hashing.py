@@ -1,19 +1,19 @@
-def hash(key, M):
-    return key % M
-
-def start_hash_table(M):
-    hash_table = {}
-    for i in range(M):
-        hash_table[i] = []
-    return hash_table
-
-def insert_hash_table(key, item, hash_table, M):
-    pos = hash(key, M)
-    hash_table[pos].append(item)
-
-def search_hash_table(key, key_name, hash_table, M):
-    pos = hash(key, M)
-    for item in hash_table[pos]:
-        if(key == item[key_name]):
-            return item 
-    return False
+class HashTable():
+    def __init__(self, table_size):
+        self.table_size = table_size
+        self.dict = {}
+        self.__start_hash_table()
+    def hash(self, key):
+        return key % self.table_size
+    def __start_hash_table(self):
+        for i in range(self.table_size):
+            self.dict[i] = []
+    def insert(self, key, item):
+        pos = self.hash(key)
+        self.dict[pos].append(item)
+    def search(self, key, key_name):
+        pos = self.hash(key)
+        for item in self.dict[pos]:
+            if(key == item[key_name]):
+                return item 
+        return False

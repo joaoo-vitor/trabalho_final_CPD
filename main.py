@@ -1,6 +1,12 @@
 from searches import *
-# Chamar função que construa estruturas
+from creating_structures import *
 
+# Chama função pra construir cada estrutura
+print('Criando estruturas...')
+hash_table_players = structure_players_data()
+names_trie = structure_short_names_trie()
+hash_table_users = structure_users_ratings()
+# (botar quarta struct aqui)
 
 # Menu de busca
 print('\nESCOLHA UMA DAS OPCOES DE PESQUISAS ABAIXO:\n')
@@ -16,7 +22,7 @@ while user_input != 0:
                 nome = input("\nDIGITE O PREFIXO DO NOME DO JOGADOR (ou '9' para voltar): ")
                 if nome == '9':
                     break
-                print(players_starting_with_short_name(nome))
+                print(players_starting_with_short_name(nome,names_trie,hash_table_players))
                 
         elif user_input == 2:
             while True:
