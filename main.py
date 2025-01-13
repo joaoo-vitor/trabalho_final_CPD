@@ -4,9 +4,9 @@ from creating_structures import *
 # Chama função pra construir cada estrutura
 print('Criando estruturas...')
 hash_table_players = structure_players_data()
-names_trie = structure_short_names_trie()
+names_ternary_trie = structure_short_names_trie()
 hash_table_users = structure_users_ratings()
-# (botar quarta struct aqui)
+tags_trie = structure_players_tags()
 
 # Menu de busca
 print('\nESCOLHA UMA DAS OPCOES DE PESQUISAS ABAIXO:\n')
@@ -22,13 +22,14 @@ while user_input != 0:
                 nome = input("\nDIGITE O PREFIXO DO NOME DO JOGADOR (ou '9' para voltar): ")
                 if nome == '9':
                     break
-                print(players_starting_with_short_name(nome,names_trie,hash_table_players))
+                print(prefixo(nome,names_ternary_trie,hash_table_players))
                 
         elif user_input == 2:
             while True:
-                nome = input("\nDIGITE O ID DO USUARIO (ou '9' para voltar): ")
-                if nome == '9':
+                id = input("\nDIGITE O ID DO USUARIO (ou '9' para voltar): ")
+                if id == '9':
                     break
+                print(user(int(id), hash_table_users, hash_table_players))
                 
         elif user_input == 3:
             while True:

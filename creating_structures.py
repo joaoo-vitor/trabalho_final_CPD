@@ -72,7 +72,8 @@ def structure_short_names_trie():
 # 2.3 Estrutura 3: Estrutura para guardar revisoes de usuários
 def structure_users_ratings():
     before = datetime.datetime.now()
-    hash_table_users = HashTable(100000)
+    # Numero primo mais proximo de 80% da quantidade dos ratings
+    hash_table_users = HashTable(19350449)
 
     # Insere cada rating na lista da posição adequada 
     with open(caminho_ratings_csv) as csvfile:
@@ -83,27 +84,35 @@ def structure_users_ratings():
             # row[0] = user_id
             key = int(row[0])
             user_ratings= hash_table_users.search(key, 'user_id')
+
             # row[1] = 'sofifa_id', row[2] = 'rating'
-            
-            player_id, rating = int(row[1]), float(row[2])
+            user_id, player_id, rating = int(row[0]), int(row[1]), float(row[2])
             if(user_ratings):
                 # If the key already existing on the HT, append the list of ratings of the user
                 user_ratings['ratings'].append((player_id, rating))
             else:
                 # Else, initialize new dictionary with only the first rating and insert on the rtable
                 # row[0] = user_id
-                dict_ratings ={'user_id':row[0], 'ratings': (player_id, rating)}
+                dict_ratings ={'user_id':user_id, 'ratings': [(player_id, rating)]}
                 hash_table_users.insert(key, dict_ratings)
         
     elapsed_time = datetime.datetime.now() - before
     print('Estrutura 3 finalizada. Tempo: ', elapsed_time)
     return hash_table_users
 
-# # # 2.4 Estrutura 4: Estrutura para guardar tags
-# # trie_tags = Trie()
-# # for _, row in df_tags.iterrows():
-# #    trie_tags.insert(row['sofifa_id'], str(row['tag']))
-
-# # print(trie_tags.search('B'))
-
+# 2.4 Estrutura 4: Estrutura para guardar tags
+def structure_players_tags():
+    before = datetime.datetime.now()
+    trie_tags = Trie()
+    with open(caminho_tags_csv) as csvfile:
+            reader = csv.reader(csvfile, delimiter=",")
+            # Pula header
+            next(reader)
+            for row in reader:
+                # row[1] = 'sofifa_id'
+                # row[2] = 'tag'
+                trie_tags.insert(row[1], str(row[2]))
+    elapsed_time = datetime.datetime.now() - before
+    print('Estrutura 4 finalizada. Tempo: ', elapsed_time)
+    return trie_tags
 
