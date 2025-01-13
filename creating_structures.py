@@ -1,8 +1,11 @@
 import pandas as pd
+from ternary_trie import *
 from hashing import *
 
 df_players = pd.read_csv('players.csv')
 df_ratings = pd.read_csv('minirating.csv')
+
+
 # 2.1 Estrutura 1: Armazenando Dados Sobre Jogadores
 
 # Define colunas novas em df_players para os ratings
@@ -34,3 +37,11 @@ for key in hash_table_players:
 
 _, player = search_hash_table(158023, 'sofifa_id', hash_table_players, ht_size)
 print(player['rating_avg'])
+
+# 2.2 Estrutura 2: Estrutura para buscas por strings de nomes
+trie_names = TernaryTrie()
+for _, row in df_players.iterrows():
+   trie_names.insert(row['long_name'].lower(), row['sofifa_id'])
+
+
+

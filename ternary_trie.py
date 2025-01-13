@@ -1,7 +1,7 @@
 class TernaryTrieNode:
     def __init__(self, char):
         self.char = char  # Character stored in this node
-        self.is_end_of_word = False  # Marks the end of a word
+        self.id = None  # Marks the end of a word
         self.left = None  # Left child (characters less than this char)
         self.middle = None  # Middle child (characters equal to this char)
         self.right = None  # Right child (characters greater than this char)
@@ -11,9 +11,9 @@ class TernaryTrie:
     def __init__(self):
         self.root = None
 
-    def insert(self, word):
+    def insert(self, word, id):
         """
-        Inserts a word into the ternary trie.
+        Inserts a word into the ternary trie, with the player id.
         """
         def _insert(node, word, index):
             char = word[index]
@@ -25,44 +25,47 @@ class TernaryTrie:
                 node.left = _insert(node.left, word, index)
             elif char > node.char:
                 node.right = _insert(node.right, word, index)
-            else:  # char == node.char
+            else:
+                # If is the last letter
                 if index + 1 < len(word):
                     node.middle = _insert(node.middle, word, index + 1)
                 else:
-                    node.is_end_of_word = True
-
+                    node.id = id
             return node
 
+        # Starts insertion from the root counting from index zero
         self.root = _insert(self.root, word, 0)
 
-    def search(self, word):
+    def search(self, prefix):
         """
-        Searches for a word in the ternary trie.
-        Returns True if the word exists, False otherwise.
+        Searches for words by a prefix
+        Returns a list of words that has the prefix.
         """
-        def _search(node, word, index):
+        def _search(node, prefix, index):
             if node is None:
-                return False
+                return []
 
-            char = word[index]
+            char = prefix[index]
 
             if char < node.char:
-                return _search(node.left, word, index)
+                return _search(node.left, prefix, index)
             elif char > node.char:
-                return _search(node.right, word, index)
-            else:  # char == node.char
-                if index + 1 == len(word):
-                    return node.is_end_of_word
-                return _search(node.middle, word, index + 1)
+                return _search(node.right, prefix, index)
+            else: 
+                # If is the last letter 
+                if index + 1 == len(prefix):
+                    return self.traverse(node.middle)
+                return _search(node.middle, prefix, index + 1)
+            
+        # Start search from the root of the tree and counting from zero.
+        return _search(self.root, prefix, 0)
 
-        return _search(self.root, word, 0)
-
-    def traverse(self):
+    def traverse(self, node):
         """
-        Traverses the ternary trie and prints all the words.
+        Traverses the ternary trie starting from a given node and return a list of the words.
         """
+        
         result = []
-
         def _traverse(node, prefix):
             if node is None:
                 return
@@ -71,8 +74,9 @@ class TernaryTrie:
             _traverse(node.left, prefix)
 
             # Visit the current node
-            if node.is_end_of_word:
-                result.append(prefix + node.char)
+            # If has an id, append the current word on the traverse list
+            if node.id:
+                result.append(node.id)
 
             # Traverse the middle subtree
             _traverse(node.middle, prefix + node.char)
@@ -80,18 +84,5 @@ class TernaryTrie:
             # Traverse the right subtree
             _traverse(node.right, prefix)
 
-        _traverse(self.root, "")
+        _traverse(node, "")
         return result
-
-
-# Example usage:
-trie = TernaryTrie()
-trie.insert("cat")
-trie.insert("car")
-trie.insert("bat")
-trie.insert("bar")
-trie.insert("can")
-
-print("Words in the trie:", trie.traverse())
-print("Search for 'cat':", trie.search("cat"))
-print("Search for 'cap':", trie.search("cap"))

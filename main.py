@@ -1,8 +1,10 @@
+# Chamar função que construa estruturas
+
+
 # Menu de busca
 
 print('\nESCOLHA UMA DAS OPCOES DE PESQUISAS ABAIXO:\n')
 user_input = -1  
-
 while user_input != 0:
     try:
         print("\n  1 - Buscar jogadores por prefixo\n  2 - Avaliacoes dos jogadores pelos usuarios")
