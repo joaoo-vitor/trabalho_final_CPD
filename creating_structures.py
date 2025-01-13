@@ -1,9 +1,11 @@
 import pandas as pd
 from ternary_trie import *
 from hashing import *
+from trie import *
 
 df_players = pd.read_csv('players.csv')
 df_ratings = pd.read_csv('minirating.csv')
+df_tags = pd.read_csv('tags.csv')
 
 print('Criando estruturas...')
 
@@ -65,8 +67,11 @@ for index, row in df_ratings.iterrows():
 # user_ratings = search_hash_table(12320, 'user_id', hash_table_users, ht_size)
 # print(user_ratings['ratings'])
 
-       
+# 2.4 Estrutura 4: Estrutura para guardar tags
+trie_tags = Trie()
+for _, row in df_tags.iterrows():
+   trie_tags.insert(row['sofifa_id'], str(row['tag']))
 
-
+print(trie_tags.search('B'))
 
 

@@ -11,12 +11,14 @@ class Trie:
     
     def insert(self, sofifa_id, tag):
         current_node = self.root
-        for character in tag:
-            if character not in current_node.children:
-                current_node.children[character] = TrieNode()
-            current_node = current_node.children[character]
-        current_node.sofifa_ids.add(sofifa_id)
-        current_node.is_terminal = True
+        # Empty tags are ignored
+        if(len(tag)):
+            for character in tag:
+                if character not in current_node.children:
+                    current_node.children[character] = TrieNode()
+                current_node = current_node.children[character]
+            current_node.sofifa_ids.add(sofifa_id)
+            current_node.is_terminal = True
 
     def search(self, prefix):
         current_node = self.root
