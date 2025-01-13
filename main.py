@@ -1,8 +1,8 @@
+from searches import *
 # Chamar função que construa estruturas
 
 
 # Menu de busca
-
 print('\nESCOLHA UMA DAS OPCOES DE PESQUISAS ABAIXO:\n')
 user_input = -1  
 while user_input != 0:
@@ -16,6 +16,7 @@ while user_input != 0:
                 nome = input("\nDIGITE O PREFIXO DO NOME DO JOGADOR (ou '9' para voltar): ")
                 if nome == '9':
                     break
+                print(players_starting_with_short_name(nome))
                 
         elif user_input == 2:
             while True:
