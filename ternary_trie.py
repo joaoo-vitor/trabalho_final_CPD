@@ -1,10 +1,10 @@
 class TernaryTrieNode:
     def __init__(self, char):
-        self.char = char  # Character stored in this node
+        self.char = char 
         self.id = None  # Marks the end of a word
-        self.left = None  # Left child (characters less than this char)
-        self.middle = None  # Middle child (characters equal to this char)
-        self.right = None  # Right child (characters greater than this char)
+        self.left = None
+        self.middle = None
+        self.right = None 
 
 
 class TernaryTrie:

@@ -5,9 +5,9 @@ from hashing import *
 df_players = pd.read_csv('players.csv')
 df_ratings = pd.read_csv('minirating.csv')
 
+print('Criando estruturas...')
 
 # 2.1 Estrutura 1: Armazenando Dados Sobre Jogadores
-
 # Define colunas novas em df_players para os ratings
 df_players['number_of_ratings']=0
 df_players['rating_avg']=0
@@ -21,10 +21,11 @@ for index, row in df_players.iterrows():
     key = int(row['sofifa_id'])
     insert_hash_table(key, row.to_dict(), hash_table_players, ht_size)
 
+# Lookup com ratings
 # Percorre cada avaliação e incrementa na linha do jogador
 for index, row in df_ratings.iterrows():
     key = int(row['sofifa_id'])
-    _, player = search_hash_table(key, 'sofifa_id', hash_table_players, ht_size)
+    player = search_hash_table(key, 'sofifa_id', hash_table_players, ht_size)
     if(player):
         player['number_of_ratings']+=1
         player['rating_avg']+=float(row['rating'])
@@ -35,13 +36,37 @@ for key in hash_table_players:
       if(player['number_of_ratings']):
         player['rating_avg']/=player['number_of_ratings']
 
-_, player = search_hash_table(158023, 'sofifa_id', hash_table_players, ht_size)
-print(player['rating_avg'])
+# player = search_hash_table(158023, 'sofifa_id', hash_table_players, ht_size)
+# print(player['rating_avg'])
 
 # 2.2 Estrutura 2: Estrutura para buscas por strings de nomes
 trie_names = TernaryTrie()
 for _, row in df_players.iterrows():
    trie_names.insert(row['long_name'].lower(), row['sofifa_id'])
+
+# 2.3 Estrutura 3: Estrutura para guardar revisoes de usuários
+hash_table_users = start_hash_table(ht_size)
+
+# Insere cada rating na lista da posição adequada 
+for index, row in df_ratings.iterrows():
+    key = int(row['user_id'])
+    user_ratings= search_hash_table(key, 'user_id', hash_table_users, ht_size)
+    player_id, rating = int(row['sofifa_id']), int(row['rating'])
+    if(user_ratings):
+        # If the key already existing on the HT, append the list of ratings of the user
+        user_ratings['ratings'].append((player_id, rating))
+    else:
+       # Else, initialize new dictionary with only the first rating and insert on the rtable
+       dict_ratings ={}
+       dict_ratings['user_id']=row['user_id']
+       dict_ratings['ratings'] = [(player_id, rating)]
+       insert_hash_table(key, dict_ratings, hash_table_users, ht_size)
+
+# user_ratings = search_hash_table(12320, 'user_id', hash_table_users, ht_size)
+# print(user_ratings['ratings'])
+
+       
+
 
 
 

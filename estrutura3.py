@@ -2,7 +2,6 @@ import csv
 from prettytable import PrettyTable
 
 #2.2 Estrutura 2: Estrutura para buscas por strings de nomes
-
 def criar_tabela_hash(tamanho):
     return [None] * tamanho
 

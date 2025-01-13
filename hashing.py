@@ -13,9 +13,7 @@ def insert_hash_table(key, item, hash_table, M):
 
 def search_hash_table(key, key_name, hash_table, M):
     pos = hash(key, M)
-    tests_qty=0
     for item in hash_table[pos]:
-        tests_qty+=1
         if(key == item[key_name]):
-            return tests_qty, item 
-    return tests_qty, False
+            return item 
+    return False
