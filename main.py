@@ -36,9 +36,9 @@ while user_input != 0:
                 top_input_str = input("\nDIGITE O TAMANHO E A POSICAO DO RANKING (ou '9' para voltar): ")
                 if top_input_str == '9':
                     break
-                top_input = top_input_str.split(',')
+                top_input = top_input_str.split()
                 n = top_input[0]
-                position = top_input[1].split("'")[1::2]
+                position = top_input[1]
                 print(top(n, position, hash_table_players))
                 
         elif user_input == 4:
