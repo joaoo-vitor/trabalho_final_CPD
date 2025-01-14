@@ -5,7 +5,7 @@ from trie import *
 import datetime
 import csv
 
-caminho_ratings_csv = 'minirating.csv'
+caminho_ratings_csv = 'rating.csv'
 caminho_players_csv = 'players.csv'
 caminho_tags_csv = 'tags.csv'
 
@@ -73,7 +73,7 @@ def structure_short_names_trie():
 def structure_users_ratings():
     before = datetime.datetime.now()
     # Numero primo mais proximo de 80% da quantidade dos ratings
-    hash_table_users = HashTable(19350449)
+    hash_table_users = HashTable(100000)
 
     # Insere cada rating na lista da posição adequada 
     with open(caminho_ratings_csv) as csvfile:

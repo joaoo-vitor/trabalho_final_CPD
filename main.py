@@ -33,16 +33,17 @@ while user_input != 0:
                 
         elif user_input == 3:
             while True:
-                nome = input("\nDIGITE O TAMANHO E A POSICAO DO RANKING (ou '9' para voltar): ")
-                if nome == '9':
+                top_input = input("\nDIGITE O TAMANHO E A POSICAO DO RANKING (ou '9' para voltar): ")
+                if top_input == '9':
                     break
-    
                 
         elif user_input == 4:
             while True:
-                tags = input("\nDIGITE AS TAGS PARA BUSCAR OS JOGADORES (ou '9' para voltar): ")
-                if tags == '9':
+                tags_input = input("\nDIGITE AS TAGS PARA BUSCAR OS JOGADORES (ou '9' para voltar): ")
+                if tags_input == '9':
                     break
+                tags_input = tags_input.split("'")[1::2]
+                print(tags(tags_trie, hash_table_players, tags_input))
                 
         elif user_input == 0:
             print("Saindo do programa...")
