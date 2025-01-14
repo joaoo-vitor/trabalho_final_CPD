@@ -74,6 +74,35 @@ def tags(trie_tags_list, ht_players, tags_list):
 
 # 3.3 Pesquisa 3: melhores jogadores de uma determinada posicão
 
+def top(number, position, ht_players):
+    jogadores = []
+
+    for indice in ht_players.dict.values():
+        for nodo in indice:
+            jogador = nodo
+            if position in jogador["player_positions"] and jogador["number_of_ratings"] >= 1000:
+                jogadores.append(jogador)
+
+    # Ordena em ordem decrescente a partir do rating global
+    quick_sort_lomuto(jogadores, "rating_avg", 0, len(jogadores)-1, dec=True)
+
+    number = int(number)
+    jogadores = jogadores[:number]
+    tabela_resultados = PrettyTable()
+    tabela_resultados.field_names = ['sofifa_id', 'short_name', 'long_name', 'player_positions',  'nationality', 'rating_avg', 'number_of_ratings']
+
+    for jogador in jogadores:
+        tabela_resultados.add_row([
+            jogador["sofifa_id"],
+            jogador["short_name"],
+            jogador["long_name"],
+            jogador["player_positions"],
+            jogador["nationality"],
+            f"{jogador['rating_avg']:.6f}",
+            jogador["number_of_ratings"]
+        ])
+
+    return tabela_resultados
 
 # 3.4 Pesquisa 4: prefixos de nomes de jogadores
 
@@ -92,6 +121,7 @@ def tags(trie_tags_list, ht_players, tags_list):
     if ids_players:
         for id in ids_players:
             player = ht_players.search(int(id), 'sofifa_id')
-            result.add_row([player[column] for column in result.field_names])
+            row = [player[column] if column != 'rating_avg' else f"{player[column]:.6f}" for column in result.field_names]
+            result.add_row(row)
 
     return result
