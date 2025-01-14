@@ -72,8 +72,8 @@ def structure_short_names_trie():
 # 2.3 Estrutura 3: Estrutura para guardar revisoes de usuários
 def structure_users_ratings():
     before = datetime.datetime.now()
-    # Numero primo mais proximo de 80% da quantidade dos ratings
-    hash_table_users = HashTable(256401)
+    # Numero primo mais proximo de 20% da quantidade dos ratings
+    hash_table_users = HashTable(4837603)
 
     # Insere cada rating na lista da posição adequada 
     with open(caminho_ratings_csv) as csvfile:

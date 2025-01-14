@@ -77,3 +77,33 @@ def tags(trie_tags_list, ht_players, tags_list):
             result.add_row(row)
 
     return result
+
+def top(number, position, ht_players):
+    jogadores = []
+
+    for indice in ht_players.dict.values():
+        for nodo in indice:
+            jogador = nodo
+            if position in jogador["player_positions"] and jogador["number_of_ratings"] >= 1000:
+                jogadores.append(jogador)
+
+    # Ordena em ordem decrescente a partir do rating global
+    insertion_sort(jogadores, 5, dec=True)
+
+    number = int(number)
+    jogadores = jogadores[:number]
+    tabela_resultados = PrettyTable()
+    tabela_resultados.field_names = ['sofifa_id', 'short_name', 'long_name', 'player_positions',  'nationality', 'rating_avg', 'number_of_ratings']
+
+    for jogador in jogadores:
+        tabela_resultados.add_row([
+            jogador["sofifa_id"],
+            jogador["short_name"],
+            jogador["long_name"],
+            jogador["player_positions"],
+            jogador["nationality"],
+            f"{jogador['rating_avg']:.6f}",
+            jogador["number_of_ratings"]
+        ])
+
+    return tabela_resultados
