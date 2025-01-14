@@ -19,21 +19,21 @@ while user_input != 0:
 
         if user_input == 1:
             while True:
-                nome = input("\nDIGITE O PREFIXO DO NOME DO JOGADOR (ou '9' para voltar): ")
+                nome = input("\nDIGITE O PREFIXO DO NOME DO JOGADOR (ou '9' para voltar)\nExemplo: prefixo <stringprefixo>\n> prefixo ")
                 if nome == '9':
                     break
                 print(prefixo(nome,names_ternary_trie,hash_table_players))
                 
         elif user_input == 2:
             while True:
-                id = input("\nDIGITE O ID DO USUARIO (ou '9' para voltar): ")
+                id = input("\nDIGITE O ID DO USUARIO (ou '9' para voltar)\nExemplo: user <userID>\n> user ")
                 if id == '9':
                     break
                 print(user(int(id), hash_table_users, hash_table_players))
                 
         elif user_input == 3:
             while True:
-                top_input_str = input("\nDIGITE O TAMANHO E A POSICAO DO RANKING (ou '9' para voltar): ")
+                top_input_str = input("\nDIGITE O TAMANHO E A POSICAO DO RANKING (ou '9' para voltar)\nExemplo: top <N> <Position>\n> top ")
                 if top_input_str == '9':
                     break
                 top_input = top_input_str.split()
@@ -43,7 +43,7 @@ while user_input != 0:
                 
         elif user_input == 4:
             while True:
-                tags_input = input("\nDIGITE AS TAGS PARA BUSCAR OS JOGADORES (ou '9' para voltar): ")
+                tags_input = input("\nDIGITE AS TAGS PARA BUSCAR OS JOGADORES (ou '9' para voltar)\nExemplo: tags <'tag1' 'tag2'>\n> tags ")
                 if tags_input == '9':
                     break
                 tags_input = tags_input.split("'")[1::2]
