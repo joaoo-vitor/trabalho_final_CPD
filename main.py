@@ -33,7 +33,7 @@ while user_input != 0:
                 
         elif user_input == 3:
             while True:
-                top_input_str = input("\nDIGITE O TAMANHO E A POSICAO DO RANKING (ou '9' para voltar): ")
+                top_input_str = input("\nDIGITE O TAMANHO E A POSICAO DO RANKING, (ex: 20 'RW B') (ou '9' para voltar): ")
                 if top_input_str == '9':
                     break
                 top_input = top_input_str.split()
@@ -43,7 +43,7 @@ while user_input != 0:
                 
         elif user_input == 4:
             while True:
-                tags_input = input("\nDIGITE AS TAGS PARA BUSCAR OS JOGADORES (ou '9' para voltar): ")
+                tags_input = input("\nDIGITE AS TAGS PARA BUSCAR OS JOGADORES (ex: 'Brazil','Team Player') (ou '9' para voltar): ")
                 if tags_input == '9':
                     break
                 tags_input = tags_input.split("'")[1::2]
