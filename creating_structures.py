@@ -95,8 +95,6 @@ def structure_users_ratings():
             else:
                 # Else, initialize new dictionary with only the first rating and insert on the rtable
                 # row[0] = user_id
-                if(key ==55423):
-                    print('inserting key', key)
                 dict_ratings ={'user_id':user_id, 'ratings': [(player_id, rating)]}
                 hash_table_users.insert(key, dict_ratings)
         

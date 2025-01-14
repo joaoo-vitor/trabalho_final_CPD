@@ -16,7 +16,6 @@ def prefixo(prefix, names_trie, ht_players):
             player = ht_players.search(id, 'sofifa_id')
             player['rating_avg'] = '%0.6f' % player['rating_avg']  
             arr_rows.append([player[column] for column in result.field_names])
-            print('adding to the table: \n', [player[column] for column in result.field_names])
         # Ordena em ordem decrescente a partir do rating global (index 5)
         quick_sort_lomuto(arr_rows, 5, 0, len(arr_rows)-1, dec=True)
     # Adiciona da array para a tabela
@@ -29,7 +28,6 @@ def user(user_id, ht_users, ht_players):
     result = PrettyTable()
     result.field_names = ['sofifa_id', 'short_name', 'long_name', 'rating_avg', 'number_of_ratings', "user's rating"]
     ratings_user = ht_users.search(user_id, 'user_id')
-    print(f'encontrei {len(ratings_user)} ratings desse usuario')
     arr_rows = []
     if(ratings_user):
         for rating in ratings_user['ratings']:
@@ -40,16 +38,13 @@ def user(user_id, ht_users, ht_players):
         quick_sort_lomuto(arr_rows, 3, 0, len(arr_rows)-1, dec=True)
         # Ordena em ordem decrescente a partir da nota atribuida pelo user (index 5) - sorting primária
         quick_sort_lomuto(arr_rows, 5, 0, len(arr_rows)-1, dec=True)
-        # Remove o sobrejacente (apenas 30)
+        # Adiciona da array para a tabela (deixando apenas 30)
         count =0
         for row in arr_rows:
             result.add_row(row)
             count+=1
             if(count==30):
                 break
-    # Adiciona da array para a tabela
-    for row in arr_rows:
-        result.add_row(row)
     return result
 
 # 3.3 Pesquisa 3: melhores jogadores de uma determinada posicão
