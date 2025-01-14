@@ -5,7 +5,7 @@ from trie import *
 import datetime
 import csv
 
-caminho_ratings_csv = 'minirating.csv'
+caminho_ratings_csv = 'rating.csv'
 caminho_players_csv = 'players.csv'
 caminho_tags_csv = 'tags.csv'
 
@@ -73,7 +73,7 @@ def structure_short_names_trie():
 def structure_users_ratings():
     before = datetime.datetime.now()
     # Numero primo mais proximo de 80% da quantidade dos ratings
-    hash_table_users = HashTable(1000)
+    hash_table_users = HashTable(256401)
 
     # Insere cada rating na lista da posição adequada 
     with open(caminho_ratings_csv) as csvfile:
@@ -88,8 +88,6 @@ def structure_users_ratings():
             # row[1] = 'sofifa_id', row[2] = 'rating'
             user_id, player_id, rating = int(row[0]), int(row[1]), float(row[2])
             if(user_ratings):
-                if(key ==55423):
-                    print('appending key', key)
                 # If the key already existing on the HT, append the list of ratings of the user
                 user_ratings['ratings'].append((player_id, rating))
             else:
