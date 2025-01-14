@@ -5,7 +5,7 @@ from trie import *
 import datetime
 import csv
 
-caminho_ratings_csv = 'rating.csv'
+caminho_ratings_csv = 'minirating.csv'
 caminho_players_csv = 'players.csv'
 caminho_tags_csv = 'tags.csv'
 
